@@ -1,1 +1,14 @@
 A book and associated source code for introducing Python to Scientists, Engineers and Mathematicians.
+
+On an Ubuntu system, installing texlive-all will get the TeX packages needed.
+
+To build the book, run (in this directory):
+
+$source setup.sh
+$compile_book.sh
+
+The pdf of the book should appear.
+
+To clean up the temporary files, run:
+
+$clean_book.sh
