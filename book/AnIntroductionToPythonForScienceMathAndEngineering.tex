@@ -72,7 +72,7 @@ The topics of this book are grouped together into four chapters. Each chapter ha
 
 \subsection{Introduction to Python}
 
-    \item Introduction and Overview of Python, its capabilities and basic installation, setup and invoking the CPython interpretter. Discussion of development environments and the flavors of Python (2 vs 3, Jython, Pypy, Iron Python, CPython )
+    \item Introduction and Overview of Python, its capabilities and basic installation, setup and invoking the CPython interpreter. Discussion of development environments and the flavors of Python (2 vs 3, Jython, Pypy, Iron Python, CPython )
 
     \item Control Flow, Functions and Types
 
@@ -202,7 +202,7 @@ imports all of the functions except \verb|exchange()|. If and only if \textbf{le
 \end{enumerate}
 
 \section{Class 2: Input/Output, Exceptions and Classes}
-All useful computer languages have input/output facilities. Python's represent a good mix of power and ease of use. Exceptions provide a powerful and customizable method of error checking that also produces useful debugging information that's accessible from the command line or from within the interpretter.
+All useful computer languages have input/output facilities. Python's represent a good mix of power and ease of use. Exceptions provide a powerful and customizable method of error checking that also produces useful debugging information that's accessible from the command line or from within the interpreter.
 
 Python is an object oriented language -- objects bind together data and functions to make designing and managing programs easier as well as making it easy to reuse code. They also allow the user to define new data types, such as matrices, that can use Python's native operators like addition and multiplication. To implement user types, the user defines a \gls{class} which contains the object's data and functions that use and/or alter that data.
 
@@ -268,7 +268,7 @@ Python packages can also be downloaded from their project websites; often hosted
 Additionally, there is an offical website for cataloging and sharing user created Python packages, the Python Package Index or "PyPI" (not to be confused with PyPy which is, among other things, an optimizing Python interpreter. We will come back to it later.) PyPI can also be accessed through the \verb|easy_install| and \verb|pip| packages.
 
 \subsection{Reading}
-Topics 10-13 of the tutorial. "Installing Distributions from the Python Package Index" from the \href{http://wiki.python.org/moin/CheeseShopTutorial}{PyPI tutorial}. 
+Topics 10-13 of the Python tutorial. "Installing Distributions from the Python Package Index" from the \href{http://wiki.python.org/moin/CheeseShopTutorial}{PyPI tutorial}. 
 
 \subsection{Problems}
 
@@ -304,7 +304,7 @@ Other packages expand Python's numerical capabilities even further:
 
 
 \subsection*{Note on Floating Point Calculations}
-Since much of Python's numerical tools use floating point numbers (Python's \verb|float| type is an IEEE 754 binary64, also known as a "double"), it is import to note that binary floating point numbers do not exactly represent many decimal fractions. Much as $1/3$ cannot be represented by a finite number of digits in base 10, numbers such as $1/10$ cannot be represented exactly in a Python \verb|float|. This requires, among other things, that equality comparisons should be avoided when dealing with floating points. Instead, the values should considered equal if they are "close enough." In many cases, a simple \verb|if abs( value1 - value2 ) < tolerance:| is acceptible, but it is not a universal solution. For more indepth discussions, see \href{http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm}{"Comparing Floating Point Numbers"}  or the in depth \href{http://www.cse.msu.edu/~cse320/Documents/FloatingPoint.pdf}{\emph{What Every Computer Scientist Should Know About Floating-Point}}.
+Since much of Python's numerical tools use floating point numbers (Python's \verb|float| type is an IEEE 754 binary64, also known as a "double"), it is important to note that binary floating point numbers do not exactly represent many decimal fractions. Much as $1/3$ cannot be represented by a finite number of digits in base 10, numbers such as $1/10$ cannot be represented exactly in a Python \verb|float|. This requires, among other things, that equality comparisons should be avoided when dealing with floating points. Instead, the values should considered equal if they are "close enough." In many cases, a simple \verb|if abs( value1 - value2 ) < tolerance:| is acceptible, but it is not a universal solution. For more indepth discussions, see \href{http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm}{"Comparing Floating Point Numbers"}  or the in depth \href{http://www.cse.msu.edu/~cse320/Documents/FloatingPoint.pdf}{\emph{What Every Computer Scientist Should Know About Floating-Point}}.
 
 \subsection{Reading}
 The matplotlib introduction and installation instructions. Python Tutorial topic 14.
