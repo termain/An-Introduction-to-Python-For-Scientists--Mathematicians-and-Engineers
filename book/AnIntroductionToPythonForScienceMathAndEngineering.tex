@@ -231,20 +231,8 @@ See attached files \textbf{input.txt} and \textbf{line\_reversed.txt} for exampl
 MyArray(arg1, arg2, arg3)}
 \end{verbatim}
 
-and \verb|print( MyArray)| gives
-\verb|[ arg1, arg2, arg3 ]|
 
-Also define the \verb|__add__()| and \verb|__len__()| methods so that \verb|+| implements piecewise addition and \verb|len()| returns the length of the array.
-
-So:
-\begin{alltt}
->>>bob = MyArray(1,2,3) + MyArray(3,2,1)
->>>print(bob)
-[4,4,4]
-\end{alltt}
-
-and \verb|len(MyArray(1,2,3)| returns:
-\verb|3|
+\emph{Give detailed MyVector example here with add, mult (including with scalars), norm, len, str and repr}
 
 	\item Define a class \verb|MyMatrix| that inherits from \verb|MyArray| but also takes row and column lengths. The \verb|__str__()| and \verb|__repr__()| methods should be overloaded so that \verb|str()| would print a 2x2 matrix like so
 
@@ -265,10 +253,10 @@ One of Python's fundamental goals is to be a "batteries included" language -- to
 
 Python packages can also be downloaded from their project websites; often hosted at public sourcecode repositories like Sourceforge, Google Code and Github; or found by your operating system's \gls{package manager}. The Linux distributions Ubuntu and Debian use \href{http://wiki.debian.org/Aptitude?action=show&redirect=aptitude}{aptitude}, \href{http://wiki.debian.org/Apt}{apt-get} or \href{https://help.ubuntu.com/community/SynapticHowto}{Synaptic}, Fedora and Redhat use \href{http://yum.baseurl.org/}{yum} and OS X users can install \href{http://www.finkproject.org/}{Fink}, which uses apt-get as well, or \href{http://www.macports.org/index.php}{MacPorts}. Package managers make it easy to search for packages by name and description.
 
-Additionally, there is an offical website for cataloging and sharing user created Python packages, the Python Package Index or "PyPI" (not to be confused with PyPy which is, among other things, an optimizing Python interpreter. We will come back to it later.) PyPI can also be accessed through the \verb|easy_install| and \verb|pip| packages.
+Additionally, there is an offical website for cataloging and sharing user created Python packages, the Python Package Index or "PyPI"\footnote{Not to be confused with PyPy which is, among other things, an optimizing Python interpreter. We will come back to it later.} PyPI can also be accessed through the \verb|easy_install|\footnote{\url{http://peak.telecommunity.com/DevCenter/EasyInstall}} and \verb|pip|\footnote{\url{http://www.pip-installer.org/en/latest/index.html}} packages.
 
 \subsection{Reading}
-Topics 10-13 of the Python tutorial. "Installing Distributions from the Python Package Index" from the \href{http://wiki.python.org/moin/CheeseShopTutorial}{PyPI tutorial}. 
+Topics 10-13 of the Python tutorial.  
 
 \subsection{Problems}
 
@@ -277,8 +265,9 @@ Topics 10-13 of the Python tutorial. "Installing Distributions from the Python P
 	\item What module enables reading and writing to variable length binary formats?
 	\item Write a function, \verb|sqrtn()| that calculates the square root of its first argument to \verb|n| decimal places, where \verb|n| is its second argument, using the \verb|decimal| module.
 	\item What does \verb|sys.argv| contain?
-	\item Write a command program that takes prints the square root of its first argument to the precisions given by its second argument.
+	\item Write a command program that prints the square root of its first argument to the precisions given by its second argument.
 	\item Install \href{http://matplotlib.sourceforge.net/}{matplotlib}, a plotting package for Python. Instructions here: \url{http://matplotlib.sourceforge.net/users/installing.html}
+
 \end{enumerate}
 
 \chapter{Scientific, Mathematical and Engineering Tools}
@@ -332,7 +321,7 @@ where \(x\) is displacement, \(\frac{dx}{dt}\) is velocity \(\frac{d^2x}{dt^2}\)
 \end{displaymath}
 
 
-We can create a class that stores all of that information and has a method \verb|derivatives()| that returns a function that gives the system derivatives \(\frac{dx_0}{dt}\) and \(\frac{dx_1}{dt}\) as a function of time and state:
+We can create a class that stores all of that information and has a method \verb|derivatives()| that returns a function that gives the system derivatives \(\frac{dx_0}{dt}\) and \(\frac{dx_1}{dt}\) as a function of time and state. We use the \verb|MyArray| class that we defined earlier as well. 
 
 \begin{verbatim}
 class HarmonicOscillator(object):
@@ -357,12 +346,26 @@ class HarmonicOscillator(object):
     return accel
 
   def derivatives(self):
-    """Returns an anonymous function that gives the state derivaties of the system"""
-    return lambda time, state: state[2], self.acceleration( time, state[1], state[2] )
+    """Returns an anonymous function that gives the state derivaties of the system as a function of the state and time."""
+    return lambda time, state: MyArray( state[2], self.acceleration( time, state[1], state[2] ) )
       
 \end{verbatim}
 
 \subsubsection{Integration}
+Something
+
+\begin{verbatim}
+
+def euler_integration( der_function, state0, start_time, end_time, time_step,  ):
+  """Euler integrator that returns a list of the state vectors at every time step"""
+  results = [ tuple(state0) ]
+  state = state0
+  time  = start_time
+
+  while( time < end_time ):
+    state = der_function( time, state )
+
+\end{verbatim}
 
 \subsubsection{Plotting the Results}
 
