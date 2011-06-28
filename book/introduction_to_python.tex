@@ -1,0 +1,152 @@
+
+\chapter{Introduction To Python}
+\section{Python Overview and Applications}
+Python has a wide variety of uses. \emph{Fill these in later}
+\subsection{Interpreters and Environments}
+
+Python is generally an interpreted language\footnote{There are dialects that are compiled and several different types of compilers. Also, the interpreter byte compiles Python expressions as part of its normal operation.}, so Python programs are usually executed as they are read from the source file. The interpeter also allows Python to be used interactively, in a \gls{repl}. 
+
+In addition to the standard Python interpreter distributed by the Python Software Foundation, there are several alternative interpreters that add additional functionality. IPython, in particular, is used extensively in the numerical community. Everything that works in the standard Python interpreter should work in IPython, so it can be used in this chapter instead of the standard Python interpreter. IPython is also part of the Spyder \gls{ide}, which we will use later.
+
+Python files are ordinary text files that are interpreted by the Python interpreter.  As such, they can be created in any text editor. Additionally, there are \glspl{ide} that integrate the text editor with useful tools such as an interpreter, a debugger or class browser. Later, we will investigate a numerically oriented \gls{ide}, Spyder. 
+
+\subsection{Reading}
+Topics 1-3 in the Python Tutorial at \url{http://docs.python.org/tutorial/} \cite{website:Python272docs}
+\subsection{Problems}
+Install Python on your computer. Use version 2 as that's what we'll be using for this class: \url{http://python.org/download/}
+
+\subsection{Control Flow, Functions and Types}
+Class 1 covers control flow statements such as \verb|if|, \verb|else|, \verb|for| and \verb|while|; sequence data types including lists, strings and tuples; dictionaries; more looping techniques including list comprehensions and functional tools like \verb|map()| and \verb|filter()|; and Python modules. We do not cover sets, thought they are discussed in the Tutorial.
+
+The reading and assignment together may take as much as four hours.
+
+\subsection{Reading}
+Topics 4-6 in the Python Tutorial at \url{http://docs.python.org/tutorial/} \cite{website:Python272docs}
+\subsection{Problems}
+\begin{enumerate}
+	\item Write a for loop that prints the numbers 1 through 50 and prints "fizz" if the number is divisible by 2 and "buzz" if it's divisible by 3.
+
+The first few numbers should look like so:
+\begin{verbatim}
+1
+2 Fizz
+3 Buzz
+4 Fizz
+5
+6 Fizz Buzz
+\end{verbatim}
+etc.
+
+	\item Explain what the \verb|continue| statement does.
+	\item Write a function, \verb|mysum()|, that takes a list as an argument and returns the sum of the elements in the list.
+	\item Write a function, \verb|map()|, that takes a function, \verb|f|, as it's first argument, a list as it's second argument and returns a list of the results of applying f to each element in the argument list. So \verb|mymap( f, [1,2,3] )|
+
+would return a list such that
+
+\verb|[f(1), f(2), f(3)]|.
+
+	\item Write a function, \verb|list_args()|, that takes an arbitrary number of arguments and returns its arguments in a list.
+	\item Modify the function from five to return just the number of arguments when passed the keyword argument
+\verb|mode="counter"|
+
+	\item Write a function, \verb|empty()|, that takes an object and a list with an arbitrary number of elements equal to that object as arguments and removes all of those elements from the list.
+
+	\item Write a version of \verb|empty()| that doesn't alter the input list, but instead returns a version of the input list with all of the elements equal to to the object removed.
+
+	\item Write a version of either \verb|empty()| that uses the \verb|filter()| function.
+
+	\item Write a function \verb|pnorm()|, that takes a list of numbers and a non-zero positive integer, \verb|p|, and returns the p-norm of the list as if it were a vector. \verb|p| should have a default value of 2. Use the \verb|map()| and \verb|reduce()| functions to implement this.
+
+\emph{Hint: The }\verb|pow()| \emph{function is in the math standard module.}
+
+	\item Implement \verb|pnorm()| from 4 using list comprehensions instead of \verb|map()|.
+
+	\item Implement \verb|pnorm()| from 4, except allow p to be a tuple of non-zero positive integers. For p=(1,2,3,x,y,z...), \verb|pnorm()| should return a tuple of the norms, such that (1-norm, 2-norm, 3-norm, x-norm, y-norm, z-norm...).
+
+	\item Create a dictionary \verb|team_locations| with keys that are the American League West team names (Athletics, Mariners,Rangers and Angels of Anaheim) and the values are their respective locations (Oakland, Seattle, Texas and Los Angeles). Write a function \verb|exchange()|, that takes \verb|team_locations| and exchanges each key for its value and vice versa. So:
+
+\begin{verbatim}
+>>> output = exchange( team\_locations)
+>>> print output[Seattle]
+\end{verbatim}
+gives
+
+\verb|Mariners|
+	
+
+	\item Create a module using a directory named \textbf{first} using \textbf{\_\_init\_\_.py}. Create a directory named \textbf{second} in \textbf{first} and make it a module as well. Finally, create a file \textbf{lecture1.py} that contains the definitions of \verb|mymap()|, \verb|list\_args()|, \verb|mysum()|, \verb|empty()|, \verb|pnorm()| and \verb|exchange()| as well as the \verb|team_locations| dict and make it a submodule of \textbf{second} so:
+
+\verb|import first.second.lecture1|
+
+imports all of the functions except \verb|exchange()|. If and only if \textbf{lecture1.py} is run as an executable, it should print the 2-norm of \verb|[1,1,1]|.
+
+\end{enumerate}
+
+\section{Class 2: Input/Output, Exceptions and Classes}
+All useful computer languages have input/output facilities. Python's represent a good mix of power and ease of use. Exceptions provide a powerful and customizable method of error checking that also produces useful debugging information that's accessible from the command line or from within the interpreter.
+
+Python is an object oriented language -- objects bind together data and functions to make designing and managing programs easier as well as making it easy to reuse code. They also allow the user to define new data types, such as matrices, that can use Python's native operators like addition and multiplication. To implement user types, the user defines a \gls{class} which contains the object's data and functions that use and/or alter that data.
+
+Python has two types of classes, old-style and new-style. While the tutorial uses old-style classes, users should use new style classes. The only difference we need to worry about is when declaring a class. When declaring a class that doesn't inherit from any other class, new-style classes inherit from object. So when the tutorial defines a class with \verb|class <Classname>:| we should use \verb|class <Classname>(object):|.
+
+\subsection{Reading}
+Topics 7-9 in the Python Tutorial at \url{http://docs.python.org/tutorial/} \cite{website:Python272docs}
+\subsection{Problems}
+\begin{enumerate}
+	\item Explain the difference between \verb|str()| and \verb|repr()|
+	\item Write a function, \verb|file_reverser()|, that takes the name of an input file and an output file, reads in the input file and writes out the input file to the output file line by in reverse. The function should close both files before returning.
+
+See attached files \textbf{input.txt} and \textbf{line\_reversed.txt} for example input files and reversed files.
+	\item Write a function \verb|pickler()| that uses pickle to store a list or dictionary to file and a function \verb|unpickler()| that returns the dictionary or list that was stored given the file name.
+	\item Add exception handling to the \verb|unpickler()| function from 4 so that when given a filename that doesn't exist, it returns \verb|None| rather than allowing an exception through.
+	\item Modify the \verb|pickler()| function from 4 to raise an exception if the object passed to be pickled is neither a list nor a dictionary. The exception should be a \verb|TypeError| and error message should be \verb|"Silly rabbit, dicts are for pickling"|
+
+\emph{Hint: }\verb|isinstance()| \emph{and} \verb|type()|
+
+	\item Define a class \verb|Door| that has one state, \verb|opened|, that can be true or false. Define a methods \verb|close()| and \verb|open()| for \verb|Door| that alter the \verb|opened| state. 
+	\item Define a class \verb|MyArray| that takes a set of numeric arguments and stores them in order. Define the \verb|__repr__()| and \verb|__str__()| methods for the class such that:
+
+\begin{verbatim}
+>>>array = MyArray(arg1, arg2, arg3)
+>>>repr(MyArray)
+MyArray(arg1, arg2, arg3)}
+\end{verbatim}
+
+
+\emph{Give detailed MyVector example here with add, mult (including with scalars), norm, len, str and repr}
+
+	\item Define a class \verb|MyMatrix| that inherits from \verb|MyArray| but also takes row and column lengths. The \verb|__str__()| and \verb|__repr__()| methods should be overloaded so that \verb|str()| would print a 2x2 matrix like so
+
+\begin{verbatim}
+[1 0
+ 0 1]
+\end{verbatim}
+
+and \verb|repr()| would return
+
+\verb|"MyMatrix( 2,2, 1, 0, 0, 1 )"|
+
+\end{enumerate}
+
+\section{ Batteries Included: Standard Library and the Python Package Index Overview}
+
+One of Python's fundamental goals is to be a "batteries included" language -- to have as much functionality built into the core language as reasonably possible. As a result, the Python Standard Library is both large and very flexible. 
+
+Python packages can also be downloaded from their project websites; often hosted at public sourcecode repositories like Sourceforge, Google Code and Github; or found by your operating system's \gls{package manager}. The Linux distributions Ubuntu and Debian use \href{http://wiki.debian.org/Aptitude?action=show&redirect=aptitude}{aptitude}, \href{http://wiki.debian.org/Apt}{apt-get} or \href{https://help.ubuntu.com/community/SynapticHowto}{Synaptic}, Fedora and Redhat use \href{http://yum.baseurl.org/}{yum} and OS X users can install \href{http://www.finkproject.org/}{Fink}, which uses apt-get as well, or \href{http://www.macports.org/index.php}{MacPorts}. Package managers make it easy to search for packages by name and description.
+
+Additionally, there is an offical website for cataloging and sharing user created Python packages, the Python Package Index or "PyPI"\footnote{Not to be confused with PyPy which is, among other things, an optimizing Python interpreter. We will come back to it later.} PyPI can also be accessed through the \verb|easy_install|\footnote{\url{http://peak.telecommunity.com/DevCenter/EasyInstall}} and \verb|pip|\footnote{\url{http://www.pip-installer.org/en/latest/index.html}} packages.
+
+\subsection{Reading}
+Topics 10-13 of the Python tutorial.  
+
+\subsection{Problems}
+
+\begin{enumerate}
+	\item What standard library module provides file wildcards like '*'?
+	\item What module enables reading and writing to variable length binary formats?
+	\item Write a function, \verb|sqrtn()| that calculates the square root of its first argument to \verb|n| decimal places, where \verb|n| is its second argument, using the \verb|decimal| module.
+	\item What does \verb|sys.argv| contain?
+	\item Write a command program that prints the square root of its first argument to the precisions given by its second argument.
+	\item Install \href{http://matplotlib.sourceforge.net/}{matplotlib}, a plotting package for Python. Instructions here: \url{http://matplotlib.sourceforge.net/users/installing.html}
+
+\end{enumerate}

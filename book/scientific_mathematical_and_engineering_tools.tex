@@ -1,0 +1,103 @@
+
+\chapter{Scientific, Mathematical and Engineering Tools}
+\section{Overview}
+Python is increasingly popular for numerical computing, the primary focus of scientific, mathematical and engineering computing. The core language has decent support for numerical computing via its \verb|math| module and its extensionable type system. Even better, however, is the strong numerical support in the Python community and the excellent packages that exist as a result. The best known of these are the SciPy suite maintained by Enthought and the Sage mathematical suite developed by mathematicians such as William Stein at the University of Washington.
+
+SciPy\cite{website:scipy} includes the NumPy array and matrix module for fast calculations on arrays of floating point data, the matplotlib plotting package and a variety of subpackages for common numerical tasks such as integration, linear algebra, signal processing, interpolation and optimization. We will use matplotlib\cite{website:matplotlib} shortly to plot the behavior of a simple spring-mass-damper system.
+
+Spyder is an IDE that provides a Matlab-like environment that includes an IPython based interactive console, an object inspector, a variable explorer, a text editor and several other useful tools. We will use it for much of this chapter. Spyder is part of the \verb|spyderlib| module that allows users to imbed Spyder-like tools in their own applications.
+
+Other packages expand Python's numerical capabilities even further:
+
+\begin{description}
+	\item[FiPy] provides a finite volume partial differential equation solver in Python. \url{http://www.ctcms.nist.gov/fipy/}
+	\item[guiqwt] provides a 2D plotting system specialized for interactive plotting and signal and image processing. \url{http://packages.python.org/guiqwt/}
+	\item[OpenOpt] provides a general optimization framework with the ability to call external solvers as well. \url{http://openopt.org/}
+	\item[PyMC] implements Bayesian estimation using the Markov Chain Monte Carlo method. \url{http://code.google.com/p/pymc/}
+	\item[rpy2] provides a Python interface to the stastical analysis oriented R programming language. \url{http://rpy.sourceforge.net/index.html}
+	\item[SimPy] is a Python extension that adds a process-based discrete-event simulation framework. \url{http://simpy.sourceforge.net/}
+	\item[sympy] is a library for symbolic mathematics. It includes the mpmath library which includes arbitrary precision numbers and interval arithmetic. \url{http://sympy.org/}
+	\item[uncertainties] allows Python to track uncertainties in random variables across algebraic operations. It works with NumPy arrays. \url{http://rpy.sourceforge.net/index.html}
+\end{description}
+
+
+\subsection*{Note on Floating Point Calculations}
+Since much of Python's numerical tools use floating point numbers (Python's \verb|float| type is an IEEE 754 binary64, also known as a "double"), it is important to note that binary floating point numbers do not exactly represent many decimal fractions. Much as $1/3$ cannot be represented by a finite number of digits in base 10, numbers such as $1/10$ cannot be represented exactly in a Python \verb|float|. This requires, among other things, that equality comparisons should be avoided when dealing with floating points. Instead, the values should considered equal if they are "close enough." In many cases, a simple \verb|if abs( value1 - value2 ) < tolerance:| is acceptible, but it is not a universal solution. For more indepth discussions, see \href{http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm}{"Comparing Floating Point Numbers"}  or the in depth \href{http://www.cse.msu.edu/~cse320/Documents/FloatingPoint.pdf}{\emph{What Every Computer Scientist Should Know About Floating-Point}}.
+
+\subsection{Reading}
+The matplotlib introduction and installation instructions. Python Tutorial topic 14.
+
+\subsection{The Spring Mass Damper, a Numerical and Plotting Example}
+
+We will create a simple spring mass damper system with integrator in pure Python and plot its behavior in matplotlib.
+
+\subsubsection{Spring Mass Damper System}
+
+Our test system will be a simple damped harmonic oscillator representing a spring-mass-damper system. Recall that forced, damped harmonic oscillators follow the equation\cite{website:wikipedia}
+
+\begin{displaymath}
+F(t)-kx-c\frac{dx}{dt}=m\frac{d^2x}{dt^2}
+\end{displaymath}
+
+where \(x\) is displacement, \(\frac{dx}{dt}\) is velocity \(\frac{d^2x}{dt^2}\) is acceleration, \(m\) is the mass, \(k\) is the spring constant, \(c\) is the damping constant, \(t\) is time and \(F\) is the forcing function. Traditionally, we solve such systems by treating them has two first order differential equations:
+
+\begin{displaymath}
+\frac{dx_0}{dt} = x_1
+\end{displaymath}
+
+\begin{displaymath}
+\frac{dx_1}{dt} =  \frac{F(t)-kx-c x_1}{m}
+\end{displaymath}
+
+
+We can create a class that stores all of that information and has a method \verb|derivatives()| that returns a function that gives the system derivatives \(\frac{dx_0}{dt}\) and \(\frac{dx_1}{dt}\) as a function of time and state. We use the \verb|MyArray| class that we defined earlier as well. 
+
+\begin{verbatim}
+class HarmonicOscillator(object):
+  """A class that characterizes spring mass damper systems"""
+  def __init__(self, mass, spring, damping=0.0, forcing = None):
+    """Initialize the system. Damping defaults to zero and the forcing function 
+        defaults to None.""
+    self.mass = mass
+    self.spring = spring
+    self.damping = damping
+    if forcing == None:
+      self.forcing = lambda x: 0.0
+    else:
+      self.forcing = forcing
+
+  def acceleration(self, time, velocity, displacement):
+    """Returns the acceleration of the system as a function of time, 
+    velocity and displacement"""
+    mass = self.mass
+    accel = self.forcing(time)/mass - self.spring/mass*displacement - \
+                 self.damping/mass*velocity
+    return accel
+
+  def derivatives(self):
+    """Returns an anonymous function that gives the state derivaties of the system as a function of the state and time."""
+    return lambda time, state: MyArray( state[2], self.acceleration( time, state[1], state[2] ) )
+      
+\end{verbatim}
+
+\subsubsection{Integration}
+Something
+
+\begin{verbatim}
+
+def euler_integration( der_function, state0, start_time, end_time, time_step,  ):
+  """Euler integrator that returns a list of the state vectors at every time step"""
+  results = [ tuple(state0) ]
+  state = state0
+  time  = start_time
+
+  while( time < end_time ):
+    state = der_function( time, state )
+
+\end{verbatim}
+
+\subsubsection{Plotting the Results}
+
+You should have matplotlib already installed.
+
+\subsection{Problems}

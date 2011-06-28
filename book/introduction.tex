@@ -1,0 +1,64 @@
+
+\chapter{Introduction}
+Python is a very flexible, powerful and easy to learn and use programming language that is widely applicable to both numerical analysis and general programming tasks. It's also Free -- both costing nothing and free to use, modify and copy with no licensing restrictions to speak of. It can replace Matlab, C, C++ and most other languages for a wide variety of tasks, both at the scripting level and the large project level,  while lessening development time and debugging and often offering comparable or greater performance. It's also very good at interfacing with other languages, particularly C and C++. 
+
+The language is cross platform (it even runs on Android), has an enormous and well supported set of standard libraries as well a an active open source community that has developed a large ecosystem of Python packages that we can leverage and use without cost or licensing issues. So many problems we'll face have already been solved in Python and we can use those solutions as we need.
+
+Python has many packages that are tools for the scientific, mathematical and engineering field. We will generally refer to these fields under the general title "numerical."
+
+\section{Using this document}
+
+Occasionally, code, both as it would appear in a source file and as it would appear in an interpreter or terminal, appears in the text. Such code should be easy to distinguish from the text as it will be formated in a monospace font \verb|like so|. Filenames and directories will be \textbf{bolded}.
+
+\section{Tentative Topic Overview}
+
+The topics of this book are grouped together into four chapters. Each chapter has several units and each unit attempts to correspond to a once a week, two hour lecture with homework assignments. 
+
+\begin{enumerate}
+
+\subsection{Introduction to Python}
+
+    \item Introduction and Overview of Python, its capabilities and basic installation, setup and invoking the CPython interpreter. Discussion of development environments and the flavors of Python (2 vs 3, Jython, Pypy, Iron Python, CPython )
+
+    \item Control Flow, Functions and Types
+
+    \item I/O, Exceptions and Classes. Operator overloading.
+
+    \item Overview of the Python Standard Library. Python Package Index (PyPI).
+
+\subsection{Scientific and Engineering Applications and Tools}
+    \item Overview of scientific uses for Python. Overview of Sci/Eng tools in Python: SciPy, Numpy, guiqwt, matplotlib, Spyder, Sage, SimPy, PyMC, rpy2, OpenOpt, FiPy. Focus on matplotlib. Spring/Mass/Damper example problem with matplotlib. 
+
+    \item SciPy and Numpy and more matplotlib (mplot3d, videos, histograms )
+
+    \item Augmented interpreters: IPython, Spyder, Sage, VPython.
+
+    \item Sympy (mpmath, units, CAS stuff).
+
+\subsection{Software development in Python}
+    \item Smaller tasks (scripting). Useful modules: optparse/argparse, re module, shutil, pickle, subprocess, csv, cmd
+
+    \item GUIs. Overview and emphasis on a particular framework. Probably going to go with tk since its the builtin. Traits, Chaco.
+
+    \item Debuggers and analysis: pylint, profile, cprofile, pdb and winpdb
+
+    \item Profiling and Optimization in Python. Profiling: profile, cprofile. Optimized types: collections module, xrange, list comprehension over filter(). Call functions from current namespace rather than module namespace. Numpy vectors rather than loops. Preallocate lists? Optimized interpreters: Pypy.
+
+    \item Larger tasks: setuptools, version control overview, xml module, pydoc, sphinx, test module, readline, fileinput.
+
+\subsection{Advanced topics.}
+    \item PyOpenCl
+
+    \item Concurrency and parallelism: the threading and multiprocessing modules
+
+    \item Interfacing with other languages: ctypes, Boost.Python, Jython, f2py, IronPython
+
+    \item Pypy and RPython
+
+    \item Python frameworks: twisted, django, Qt.
+
+    \item Python and the Internet
+
+    \item Advanced optimization: Cython, weave
+
+\end{enumerate}
