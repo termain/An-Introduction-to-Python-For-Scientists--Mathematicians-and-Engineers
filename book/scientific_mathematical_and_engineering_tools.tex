@@ -52,12 +52,16 @@ where \(x\) is displacement, \(\frac{dx}{dt}\) is velocity \(\frac{d^2x}{dt^2}\)
 
 We can create a class that stores all of that information and has a method \verb|derivatives()| that returns a function that gives the system derivatives \(\frac{dx_0}{dt}\) and \(\frac{dx_1}{dt}\) as a function of time and state. We use the \verb|MyArray| class that we defined earlier as well. 
 
-\begin{verbatim}
+%alternatively: \lstinputlisting[language=Python]{source_filename.py}
+\begin{lstlisting}[caption=Harmonic Oscillator class,
+  label=harmonicOscillator,
+  float=t]
+
 class HarmonicOscillator(object):
   """A class that characterizes spring mass damper systems"""
   def __init__(self, mass, spring, damping=0.0, forcing = None):
     """Initialize the system. Damping defaults to zero and the forcing function 
-        defaults to None.""
+        defaults to None."""
     self.mass = mass
     self.spring = spring
     self.damping = damping
@@ -76,25 +80,32 @@ class HarmonicOscillator(object):
 
   def derivatives(self):
     """Returns an anonymous function that gives the state derivaties of the system as a function of the state and time."""
-    return lambda time, state: MyArray( state[2], self.acceleration( time, state[1], state[2] ) )
+    return lambda time, state: MyVector( state[2], self.acceleration( time, state[1], state[2] ) )
       
-\end{verbatim}
+\end{lstlisting}
+
 
 \subsubsection{Integration}
 Something
 
-\begin{verbatim}
+\begin{lstlisting}[caption=Euler Integrator,
+  label=harmonicOscillator,
+  float=t]
 
 def euler_integration( der_function, state0, start_time, end_time, time_step,  ):
   """Euler integrator that returns a list of the state vectors at every time step"""
-  results = [ tuple(state0) ]
+  results = [ state0 ]
   state = state0
   time  = start_time
 
   while( time < end_time ):
-    state = der_function( time, state )
+    state = der_function( time, state )*time_step + state
+    time = time+time_step
+    results.append(state)
 
-\end{verbatim}
+  return results
+
+\end{lstlisting}
 
 \subsubsection{Plotting the Results}
 

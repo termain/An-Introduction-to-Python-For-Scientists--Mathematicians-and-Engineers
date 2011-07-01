@@ -13,6 +13,22 @@
 
 \usepackage{hyperref}
 \usepackage{glossaries}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\lstset{
+	language=Python,
+	basicstyle=\small\sffamily,
+	numbers=left,
+	numberstyle=\tiny,
+	frame=tb,
+	columns=fullflexible,
+        keywordstyle=\color[rgb]{0,0,1},
+        commentstyle=\color[rgb]{0.133,0.545,0.133},
+        stringstyle=\color[rgb]{0.627,0.126,0.941},
+	showstringspaces=false
+}
 
 
 %end prelude
@@ -33,7 +49,10 @@
 \input{introduction.tex}
 \input{introduction_to_python.tex}
 \input{scientific_mathematical_and_engineering_tools.tex}
-\input{resources.tex}
+
+\appendix %begin appendices here
+\input{resources.tex} %make these into appendices
+\input{appendix_problem_solutions.tex}
 
 \printglossaries
 

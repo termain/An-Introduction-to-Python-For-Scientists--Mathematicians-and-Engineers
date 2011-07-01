@@ -6,14 +6,18 @@ Python has a wide variety of uses. \emph{Fill these in later}
 
 Python is generally an interpreted language\footnote{There are dialects that are compiled and several different types of compilers. Also, the interpreter byte compiles Python expressions as part of its normal operation.}, so Python programs are usually executed as they are read from the source file. The interpeter also allows Python to be used interactively, in a \gls{repl}. 
 
-In addition to the standard Python interpreter distributed by the Python Software Foundation, there are several alternative interpreters that add additional functionality. IPython, in particular, is used extensively in the numerical community. Everything that works in the standard Python interpreter should work in IPython, so it can be used in this chapter instead of the standard Python interpreter. IPython is also part of the Spyder \gls{ide}, which we will use later.
+In addition to the standard Python interpreter distributed by the Python Software Foundation, there are several alternative interpreters that add additional functionality. IPython\cite{ipython}, in particular, is used extensively in the numerical community. Everything that works in the standard Python interpreter should work in IPython, so it can be used in this chapter instead of the standard Python interpreter. IPython adds system shell access, numbered prompts with command history, file system navigation, object introspection, tab completion, session logging that can be reused as Python code and allow for session restoration and more to the standard Python interpreter. IPython is also part of the Spyder \gls{ide}, which we will use later.
 
-Python files are ordinary text files that are interpreted by the Python interpreter.  As such, they can be created in any text editor. Additionally, there are \glspl{ide} that integrate the text editor with useful tools such as an interpreter, a debugger or class browser. Later, we will investigate a numerically oriented \gls{ide}, Spyder. 
+Python files are ordinary text files that are interpreted by the Python interpreter.  As such, they can be created in any text editor. Additionally, there are \glspl{ide} that integrate the text editor with useful tools such as an interpreter, a debugger or class browser. Later, we will investigate a numerically oriented \gls{ide}, \gls{Spyder}.\cite{website:spyder} 
 
 \subsection{Reading}
 Topics 1-3 in the Python Tutorial at \url{http://docs.python.org/tutorial/} \cite{website:Python272docs}
 \subsection{Problems}
-Install Python on your computer. Use version 2 as that's what we'll be using for this class: \url{http://python.org/download/}
+
+\begin{enumerate}
+  \item Install Python on your computer. Use version 2 as that's what we'll be using for this class: \url{http://python.org/download/}
+  \item Install IPython on your computer. \url{http://ipython.scipy.org/doc/stable/html/install/install.html}
+\end{enumerate}
 
 \subsection{Control Flow, Functions and Types}
 Class 1 covers control flow statements such as \verb|if|, \verb|else|, \verb|for| and \verb|while|; sequence data types including lists, strings and tuples; dictionaries; more looping techniques including list comprehensions and functional tools like \verb|map()| and \verb|filter()|; and Python modules. We do not cover sets, thought they are discussed in the Tutorial.
@@ -82,7 +86,7 @@ imports all of the functions except \verb|exchange()|. If and only if \textbf{le
 
 \end{enumerate}
 
-\section{Class 2: Input/Output, Exceptions and Classes}
+\section{Input/Output, Exceptions and Classes}
 All useful computer languages have input/output facilities. Python's represent a good mix of power and ease of use. Exceptions provide a powerful and customizable method of error checking that also produces useful debugging information that's accessible from the command line or from within the interpreter.
 
 Python is an object oriented language -- objects bind together data and functions to make designing and managing programs easier as well as making it easy to reuse code. They also allow the user to define new data types, such as matrices, that can use Python's native operators like addition and multiplication. To implement user types, the user defines a \gls{class} which contains the object's data and functions that use and/or alter that data.
@@ -104,18 +108,16 @@ See attached files \textbf{input.txt} and \textbf{line\_reversed.txt} for exampl
 \emph{Hint: }\verb|isinstance()| \emph{and} \verb|type()|
 
 	\item Define a class \verb|Door| that has one state, \verb|opened|, that can be true or false. Define a methods \verb|close()| and \verb|open()| for \verb|Door| that alter the \verb|opened| state. 
-	\item Define a class \verb|MyArray| that takes a set of numeric arguments and stores them in order. Define the \verb|__repr__()| and \verb|__str__()| methods for the class such that:
 
-\begin{verbatim}
->>>array = MyArray(arg1, arg2, arg3)
->>>repr(MyArray)
-MyArray(arg1, arg2, arg3)}
-\end{verbatim}
-
-
+\end{enumerate}
+\subsection{MyVector Class Example}
 \emph{Give detailed MyVector example here with add, mult (including with scalars), norm, len, str and repr}
 
-	\item Define a class \verb|MyMatrix| that inherits from \verb|MyArray| but also takes row and column lengths. The \verb|__str__()| and \verb|__repr__()| methods should be overloaded so that \verb|str()| would print a 2x2 matrix like so
+\subsection{Problems}
+
+\begin{enumerate}
+
+	\item Define a class \verb|MyMatrix| that inherits from \verb|MyVector| but also takes row and column lengths. The \verb|__str__()| and \verb|__repr__()| methods should be overloaded so that \verb|str()| would print a 2x2 matrix like so
 
 \begin{verbatim}
 [1 0
