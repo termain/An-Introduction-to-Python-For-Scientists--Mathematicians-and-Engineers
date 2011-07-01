@@ -1,6 +1,8 @@
 A book and associated source code for introducing Python to Scientists, Engineers and Mathematicians.
 
-On an Ubuntu system, installing texlive-all will get the TeX packages needed.
+On an Ubuntu system, installing texlive-full will get the TeX packages needed. It's rather large, by the way.
+
+$sudo apt-get install texlive-full
 
 To build the book, run (in this directory):
 
