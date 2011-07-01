@@ -26,6 +26,29 @@ The reading and assignment together may take as much as four hours.
 
 \subsection{Reading}
 Topics 4-6 in the Python Tutorial at \url{http://docs.python.org/tutorial/} \cite{website:Python272docs}
+
+\subsection{Function example: nth roots}
+Here we define a nth root function.  We allow the user to set the accuracy of the method, but set it to a default value of 1.0e-6. We also set the default value of n to 2.
+
+\begin{lstlisting}[caption=Square root function,
+  label=sqrtfunction,
+  float=h!]
+
+def nth_root( argument, nn = 2, tolerance = 1e-6 ):
+    """Finding the Square Root using the Babylonian method"""
+    old_value = argument
+    new_value = (  (nn -1)*old_value + argument/old_value**(nn-1)  )/nn
+
+    while(  abs(old_value - new_value ) ):
+        old_value = new_value
+        new_value = (  (nn -1)*old_value + argument/old_value**(nn-1)  )/nn
+
+    return( new_value )
+
+\end{lstlisting}
+
+
+
 \subsection{Problems}
 \begin{enumerate}
 	\item Write a for loop that prints the numbers 1 through 50 and prints "fizz" if the number is divisible by 2 and "buzz" if it's divisible by 3.
@@ -112,6 +135,15 @@ See attached files \textbf{input.txt} and \textbf{line\_reversed.txt} for exampl
 \end{enumerate}
 \subsection{MyVector Class Example}
 \emph{Give detailed MyVector example here with add, mult (including with scalars), norm, len, str and repr}
+
+\begin{lstlisting}[caption=Harmonic Oscillator class,
+  label=harmonicOscillator,
+  float=t]
+
+class MyVector(object):
+  """A vector class that can contain any numeric type with addition and multiplication defined"""
+
+\end{lstlisting}
 
 \subsection{Problems}
 
