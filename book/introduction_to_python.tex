@@ -28,18 +28,27 @@ The reading and assignment together may take as much as four hours.
 Topics 4-6 in the Python Tutorial at \url{http://docs.python.org/tutorial/} \cite{website:Python272docs}
 
 \subsection{Function example: nth roots}
-Here we define a nth root function.  We allow the user to set the accuracy of the method, but set it to a default value of 1.0e-6. We also set the default value of n to 2.
+Here we define a nth root function.  We allow the user to set the tolerance of the method, but set it to a default value of 1.0e-6. We also set the default value of n to 2.
 
-\begin{lstlisting}[caption=Square root function,
-  label=sqrtfunction,
+First we declare the function using \verb|def| and name its arguments inside parentheses. We have a mandatory argument (\verb|argument|) and optional arguments \verb|nn|, the \emph{n} in nth root, and \verb|tolerance|, the maximum difference that between two successive values that acts as our convergence criterion. When two successive values are less than \verb|tolerance| apart, we return the latter of the two values as our approximation of the nth root. The end of the function declaration is marked with a colon.
+
+Below the function declaration, we indent one level and begin the function body. The first line of the function body is the \gls{docstring}. Docstrings are triple quoted strings that contain the documentation for the function, class, method or module that is displayed when Python's \verb|help()| function is called on that object.
+
+The actual function computation begins after the docstring and still indented one level. Since the Babylonian method is an iterative method of finding roots, we first set \verb|old_value| to our initial guess (in this case, \verb|argument|), and we iterate once to get \verb|new_value|. Note that Python's single comment character is the pound sign, \verb|#|. Multiple line comments (and multiline strings) use the triple quote, \verb|"""|. Only a triple quoted string beginning directly after function declaration is a docstring, however.
+
+Next comes a |while| loop, which will repeat until the condition inside its parenthesis is met. If the condition is met before the while loop is run (as is the case when \verb|argument| is 1, for instance), then the body of the loop will be skipped. In this case, each successive iteration of the loop will make the absolute value of the differences in the iteration results, \verb|abs(old_value - new_value)| smaller, so eventually the loop will exit, unless \verb|tolerance| is too close to or below the tolerance of the datatype of \verb|argument|, in which case the successive values may never get close enough to exit the loop. 
+
+Once the loop has exited, \verb|nth_root()| returns the final value in \verb|new_value| as an approximation of nth root.
+
+\begin{lstlisting}[caption=Nth root function,
+  label=nthrootfunction,
   float=h!]
-
 def nth_root( argument, nn = 2, tolerance = 1e-6 ):
-    """Finding the Square Root using the Babylonian method"""
-    old_value = argument
+    """Finding the nth Root using the Babylonian method"""
+    old_value = argument #We use the argument as our initial guess.
     new_value = (  (nn -1)*old_value + argument/old_value**(nn-1)  )/nn
 
-    while(  abs(old_value - new_value ) ):
+    while(  abs(old_value - new_value ) < tolerance ):
         old_value = new_value
         new_value = (  (nn -1)*old_value + argument/old_value**(nn-1)  )/nn
 
@@ -47,7 +56,7 @@ def nth_root( argument, nn = 2, tolerance = 1e-6 ):
 
 \end{lstlisting}
 
-
+%add later: An example that uses a guessing function for the first rough estimate of the nth root as an example of passing functions as arguments to other functions.
 
 \subsection{Problems}
 \begin{enumerate}
@@ -134,15 +143,40 @@ See attached files \textbf{input.txt} and \textbf{line\_reversed.txt} for exampl
 
 \end{enumerate}
 \subsection{MyVector Class Example}
-\emph{Give detailed MyVector example here with add, mult (including with scalars), norm, len, str and repr}
 
-\begin{lstlisting}[caption=Harmonic Oscillator class,
-  label=harmonicOscillator,
-  float=t]
+Vectors are extremely useful data types and pervade physical system modeling. We can use classes to define our own vector type so we can set its behavior exactly as we see fit. Here, we uses Python classes to define a vector class that is can be constructed from any numeric type that supports addition, multiplication and division. Operator overloading allows us to dictate that \verb|+|, \verb|-| and \verb|*| work exactly as they should for vectors.
 
+Like functions, classes are declared with a reserved word, \verb|class|, and the class body follows on indented lines. Unlike functions, the objects listed in parentheses are not arguments, but instead are the classes the new class inherits from. We are using Python 2 new-style classes, so all classes that inherit from nothing else inherit from \verb|object|. After the class declaration, the class's docstring should be next, followed by the class's default members and methods.
+
+The first method defined for a class is generally the \verb|__init__()| method, which is called when an object of the class is instantiated. This method is the class's default constructor. The \verb|MyVector| class will need a list at intialization which it can convert into a \verb|MyVector|.
+
+Notice that the first argument of \verb|__init__()| is \verb|self|. All of the class's methods will take \verb|self| as their first argument in their definitions. \verb|self| represents the object itself and any member of \verb|self| that a method changes is changed in the object, even after the method returns.
+
+Next, we define the \verb|__len__()| method. It is called by Python's builtin \verb|len()| function so that calling \verb|len( myObject )| will return the same value as \verb|myObject.__len__()| if \verb|myObject| has \verb|__len__()| defined. Not surprisingly, it returns the length of the vector.
+
+
+
+\begin{lstlisting}[caption=MyVector class,
+  label=myvector,
+  float=h!]
 class MyVector(object):
   """A vector class that can contain any numeric type with addition and multiplication defined"""
+  def __init__(self, input_list):
+    """Initialize a MyVector from a list. Sets the length attribute and copies the list into the MyVector"""
+    self.elements = input_list[:] #Using list slices to copy the input list
+    self.length = len( self.elements )
 
+  def __len__(self):
+    """Return the length of the vector"""
+    return( self.length )
+
+  def __getitem__(self, index):
+
+  def __add__(self,other):
+    """Addition for vectors"""
+    sum = MyVector( [0]*len( self ) ) #allocate new vector that will hold the sum
+
+    for
 \end{lstlisting}
 
 \subsection{Problems}
