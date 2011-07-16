@@ -144,6 +144,10 @@ See attached files \textbf{input.txt} and \textbf{line\_reversed.txt} for exampl
 \end{enumerate}
 \subsection{MyVector Class Example}
 
+\lstinputlisting[caption=MyVector class,
+label=myvector, firstline=1, lastline=35,
+float=ht!]{$PYTHONFORSMELOCATION/code/introduction_to_python/examples.py}
+
 Vectors are extremely useful data types and pervade physical system modeling. We can use classes to define our own vector type so we can set its behavior exactly as we see fit. Here, we uses Python classes to define a vector class that is can be constructed from any numeric type that supports addition, multiplication and division. Operator overloading allows us to dictate that \verb|+|, \verb|-| and \verb|*| work exactly as they should for vectors.
 
 Like functions, classes are declared with a reserved word, \verb|class|, and the class body follows on indented lines. Unlike functions, the objects listed in parentheses are not arguments, but instead are the classes the new class inherits from. We are using Python 2 new-style classes, so all classes that inherit from nothing else inherit from \verb|object|. After the class declaration, the class's docstring should be next, followed by the class's default members and methods.
@@ -166,51 +170,41 @@ Now we can easily define addition for the \verb|MyVector| type. We will define t
 
 Since lists and tuples have \verb|__getitem__()| and \verb|__setitem()__| defined as well, they  can be passed as the \verb|other| argument to \verb|__add__()|. Python will happily attempt to add them element by element to the elements of the calling \verb|MyVector| so long as the individual elements can be added to the elements of \verb|MyVector|.
 
-If the lengths of \verb|self| and \verb|other| are different, we we raise an exception. Python has good one already defined, \verb|ArithmeticError|. Next we create our sum vector from a list of zeros of \verb|self|'s length. This way, we use \verb|sum[index]=self[index]+other[index]| for each element since we've already defined the \verb|__getitem__()| and \verb|__setitem__()| methods for \verb|MyVector|.
+If the lengths of \verb|self| and \verb|other| are different, we we raise an exception. Python has good one already defined, \verb|ArithmeticError|. Next we create our sum vector from a list of zeros of \verb|self|'s length. This way, we use \verb|vector_sum[index]=self[index]+other[index]| for each element since we've already defined the \verb|__getitem__()| and \verb|__setitem__()| methods for \verb|MyVector|.
 
 Now we can use the \verb|range()| function to generate a list of indices that we loop over, summing each element of the addends and putting the result in \verb|sum| as we go. Once we've looped over all of the elements, we return \verb|sum|, a new \verb|MyVector| object.
 
 For completeness, we define \verb|__radd__()| by calling \verb|other|'s \verb|__add__()| method with  \verb|self| as the second argument. Remember, should \verb|__radd__()| get called, for instance if the left operand of \verb|+| is a list, the \verb|self| argument will refer to the right operand of \verb|+|.
 
-\begin{lstlisting}[caption=MyVector class,
-  label=myvector,
-  float=h!]
-class MyVector(object):
-  """A vector class that can contain any numeric type with addition and multiplication defined"""
-  def __init__(self, input_list): #we make sure that our two addends, \verb|self| and \verb|other| are the same length. 
-    """Initialize a MyVector from a list. Sets the length attribute and copies the list into the MyVector"""
-    self.elements = input_list[:] #Using list slices to copy the input list
-    self.length = len( self.elements )
+\verb|MyVector| is starting to resemble a useful tool. We can construct \verb|MyVector|s from lists and tuples, add two \verb|MyVectors| with lists and tuples as well as other \verb|MyVectors| and access their individual elements by index. However, when we try and print a \verb|MyVector|, we get something like this: 
 
-  def __len__(self):
-    """Return the length of the vector"""
-    return( self.length )
+\verb|>>>print MyVector([1,2,3])|
 
-  def __getitem__(self, index):
-    """Return the vector element at index"""
-    return( self.elements[index] )
+\verb|<__main__.MyVector object at 0x1287ed0>|
 
-  def __setitem__(self, index, value):
-    """Set element index to value"""
-    #notice that __setitem__() doesn't return anything. Instead, it alters the MyVector object
-    self.elements[index] = value
+Python doesn't yet know how to display a \verb|MyVector|. Fortunately, that's what the \verb|__str__()| method is for. It returns a string representation of the object. The \verb|print| statement automatically calls \verb|__str__| if asked to print the object. The \verb|__repr__()| can also be defined. It returns a string that is used by the interpreter to represent an object, such as what the intepreter displays when one simply enters the object's name without assigning it to anything.
 
-  def __add__(self,other):
-    """Addition for vectors"""
-    if (len(self) != len(other) ):
-      raise ArithmeticError, "Vector addends must be the same length"
+\lstinputlisting[caption=MyVector \_\_str\_\_ method,
+label=myvector, firstline=37, lastline=49,
+float=ht!]{$PYTHONFORSMELOCATION/code/introduction_to_python/examples.py}
 
-    sum = MyVector( [0]*len( self ) ) #allocate new vector that will hold the sum
+So, now the \verb|MyVector| is printed just like a list would be:
 
-    for index in range( self.len ): #range returns a list of integers from zero to it's argument minus one
-      sum[iI] = self[iI]+other[iI]
+\verb|>>>print MyVector([1,2,3])|
 
-    return(sum)
+\verb|[1,2,3]|
 
-  def __radd__(self, other):
-    """Addition for vectors with other sequence types when the vector is the right operand"""
-    return( self + other )
-\end{lstlisting}
+Without \verb|__repr__()|:
+
+\verb|>>>MyVector([1,2,3])|
+
+\verb|<__main__.MyVector object at 0xd15f10>|
+
+With \verb|__repr__()| defined (it just returns \verb|str(verb)|):
+
+\verb|>>>MyVector([1,2,3])|
+
+\verb|[1,2,3]|
 
 \subsection{Problems}
 
