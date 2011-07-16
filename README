@@ -1,5 +1,7 @@
 A book and associated source code for introducing Python to Scientists, Engineers and Mathematicians.
 
+License: The GNU Free Documentation License v1.3, http://www.gnu.org/licenses/fdl.html
+
 On an Ubuntu system, installing texlive-full will get the TeX packages needed. It's rather large, by the way.
 
 $sudo apt-get install texlive-full
@@ -14,3 +16,5 @@ The pdf of the book should appear.
 To clean up the temporary files, run:
 
 $clean_book.sh
+
+
