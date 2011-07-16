@@ -154,14 +154,30 @@ Notice that the first argument of \verb|__init__()| is \verb|self|. All of the c
 
 Next, we define the \verb|__len__()| method. It is called by Python's builtin \verb|len()| function so that calling \verb|len( myObject )| will return the same value as \verb|myObject.__len__()| if \verb|myObject| has \verb|__len__()| defined. Not surprisingly, it returns the length of the vector.
 
+Now, since we know how long the vector is, we can easily define addition. Vector addition is defined as "element i of the sum, c, is equal to the sum of element i of the addend a and element i of the addend b for all\footnote{\begin{math}\forall\end{math} is the mathematical symbol for "for all"} integer i from zero to n-1 where n is the length of the vectors a and b." Or, more concisely:
 
+\begin{displaymath}
+c_i = a_i+b_i, \forall i=0...n-1
+\end{displaymath}
+
+i, of course, is the index of the vector element. Python has two methods that let us access the elements of a sequence object like a list or MyVector directly if we know the index, instead of having to access them through the object's member variables. These are \verb|__getitem__()| and \verb|__setitem__()|. \verb|__getitem__(self, index)| allows one to access the vector's (or any class's) element at \verb|index|. \verb|__setitem__(self,index, value)| sets the element at \verb|index| to \verb|value|.  Once these methods have defined for a class, an object of that class's elements can be accessed using square brackets, just like lists.
+
+Now we can easily define addition for the \verb|MyVector| type. We will define two similar methods, \verb|__add__()| and \verb|__radd__()|, which overload the \verb|+| operator. First, we make sure that our two addends, \verb|self| and \verb|other| are the same length. Note that \verb|self| is an addend because \verb|__add__()| method of the \verb|MyVector| class. By default, Python calls the \verb|__add__()| method of the left argument to the \verb|+| sign. If it doesn't find one, it calls the \verb|__radd__()| method of the right argument to \verb|+|. If that is not available, the interpreter will raise an exception.
+
+Since lists and tuples have \verb|__getitem__()| and \verb|__setitem()__| defined as well, they  can be passed as the \verb|other| argument to \verb|__add__()|. Python will happily attempt to add them element by element to the elements of the calling \verb|MyVector| so long as the individual elements can be added to the elements of \verb|MyVector|.
+
+If the lengths of \verb|self| and \verb|other| are different, we we raise an exception. Python has good one already defined, \verb|ArithmeticError|. Next we create our sum vector from a list of zeros of \verb|self|'s length. This way, we use \verb|sum[index]=self[index]+other[index]| for each element since we've already defined the \verb|__getitem__()| and \verb|__setitem__()| methods for \verb|MyVector|.
+
+Now we can use the \verb|range()| function to generate a list of indices that we loop over, summing each element of the addends and putting the result in \verb|sum| as we go. Once we've looped over all of the elements, we return \verb|sum|, a new \verb|MyVector| object.
+
+For completeness, we define \verb|__radd__()| by calling \verb|other|'s \verb|__add__()| method with  \verb|self| as the second argument. Remember, should \verb|__radd__()| get called, for instance if the left operand of \verb|+| is a list, the \verb|self| argument will refer to the right operand of \verb|+|.
 
 \begin{lstlisting}[caption=MyVector class,
   label=myvector,
   float=h!]
 class MyVector(object):
   """A vector class that can contain any numeric type with addition and multiplication defined"""
-  def __init__(self, input_list):
+  def __init__(self, input_list): #we make sure that our two addends, \verb|self| and \verb|other| are the same length. 
     """Initialize a MyVector from a list. Sets the length attribute and copies the list into the MyVector"""
     self.elements = input_list[:] #Using list slices to copy the input list
     self.length = len( self.elements )
@@ -171,12 +187,29 @@ class MyVector(object):
     return( self.length )
 
   def __getitem__(self, index):
+    """Return the vector element at index"""
+    return( self.elements[index] )
+
+  def __setitem__(self, index, value):
+    """Set element index to value"""
+    #notice that __setitem__() doesn't return anything. Instead, it alters the MyVector object
+    self.elements[index] = value
 
   def __add__(self,other):
     """Addition for vectors"""
+    if (len(self) != len(other) ):
+      raise ArithmeticError, "Vector addends must be the same length"
+
     sum = MyVector( [0]*len( self ) ) #allocate new vector that will hold the sum
 
-    for
+    for index in range( self.len ): #range returns a list of integers from zero to it's argument minus one
+      sum[iI] = self[iI]+other[iI]
+
+    return(sum)
+
+  def __radd__(self, other):
+    """Addition for vectors with other sequence types when the vector is the right operand"""
+    return( self + other )
 \end{lstlisting}
 
 \subsection{Problems}
