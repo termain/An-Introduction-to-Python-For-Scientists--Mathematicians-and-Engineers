@@ -86,7 +86,24 @@ class HarmonicOscillator(object):
 
 
 \subsubsection{Integration}
-Something
+Since we defined multiplication and addition for \verb|MyVector| class, we can define the integrator, in the case Euler's method, easier. Recall that Euler's method explicitly solves the initial value problem
+
+\begin{displaymath}
+\frac{d\vec{y}}{dt}=\vec{f}(t,\vec{y}(t)),\:\:\:\:\: \vec{y}(t_0)=\vec{y}_0
+\end{displaymath}
+
+with the approximation
+
+\begin{displaymath}
+y_{n+1}=y_n+hf(t_n,y_n)
+
+where \begin{math}h\end{math} is the size of the time step.
+
+\end{displaymath}
+
+\begin{displaymath}
+\frac{d\vec{y}}{dt}=\vec{f}(t,\vec{y}(t)),\:\:\:\:\: \vec{y}(t_0)=\vec{y}_0
+\end{displaymath}
 
 \begin{lstlisting}[caption=Euler Integrator,
   label=harmonicOscillator,
